@@ -1,5 +1,7 @@
 package person;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -40,6 +42,20 @@ public class PersonApp {
         }
         
         // Print a dialog box message.
-        JOptionPane.showMessageDialog(null, output);
+        int choice = JOptionPane.showConfirmDialog(null, "Write to file?\n\n" + output, "Select an Option", JOptionPane.YES_NO_OPTION);
+        
+        if (choice == JOptionPane.YES_OPTION) {
+            try {
+                FileWriter writer = new FileWriter("./test.txt", true);
+                writer.write(output);
+                writer.flush();
+                writer.close();
+                System.out.println("File written successfully.");
+
+            }
+            catch (Exception e) {
+                System.err.println("Error writing file.");
+            }
+        }
     }
 }
